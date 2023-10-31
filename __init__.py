@@ -71,7 +71,7 @@ class TimeularAPI(object):
           for the HTTP request to complete.
 
         Example Usage:
-        timeular = timeularapi()
+        timeular = TimeularAPI()
         timeular.sign_in()
         # You can now use the `timeular` object with an access token for authenticated requests.
         """
@@ -88,7 +88,28 @@ class TimeularAPI(object):
 
             self.__token__ = response['token']
 
-    # TODO: GET Fetch API Key
+    # GET Fetch API Key
+    def fetch_api_key(self):
+    
+        data = {}
+        url = self.__baseurl__ + 'developer/api-access'
+        logging.debug(f'logout - data: {data}')
+
+        headers = {'Authorization': f'Bearer {self.__token__}'}
+
+        logging.debug(f'logout - headers: {headers}')
+
+        response = request('GET',
+            url,
+            data=json.dumps(data),
+            headers=headers,
+            timeout=self.__timeout__
+        )
+
+        logging.info(f'logout - response: {response}')
+
+        return response.json()['apiKey']
+
     # TODO: POST Generate new API Key & API Secret
 
     # POST Logout
@@ -111,7 +132,7 @@ class TimeularAPI(object):
             to make further authenticated API calls.
         """
         if self.__token__ is not None:
-            data = ""
+            data = {}
             logging.debug(f'logout - data: {data}')
 
             url = self.__baseurl__ + 'developer/logout'
@@ -131,10 +152,6 @@ class TimeularAPI(object):
             logging.info(f'logout - response: {response}')
             self.__token__ = None
             logging.info(f'logout - __token__: {self.__token__}')
-
-
-
-################################################################################
 
 ################################################################################
 # Integrations
@@ -176,12 +193,9 @@ class TimeularAPI(object):
 # TODO: GET Generate Report
 # TODO: GET All Data as JSON
 ########################################
-## Tags & Mentions
+    ## Tags & Mentions
 
-
-
-
-    # GET Fetch Tags & Mentions
+    ### GET Fetch Tags & Mentions
     def fetch_tags_mentions(self):
         """
         Fetches tags and mentions from the Timeular API.
@@ -227,7 +241,7 @@ class TimeularAPI(object):
         """
         return self.fetch_tags_mentions()['mentions']
 
-    # POST Create Tag
+    ### POST Create Tag
     def create_tag(self, label, scope='timeular', space_id=None):
         """
         Create a new tag using the TimeularAPI.
@@ -281,7 +295,7 @@ class TimeularAPI(object):
         logging.info(f'create_tag - response: {response}')
         return response.json()
 
-    # PATCH Update Tag
+    ### PATCH Update Tag
     def update_tag(self, tag_id: int, label):
         """
         Update a tag with the specified tag_id using the Timeular API.
@@ -328,7 +342,7 @@ class TimeularAPI(object):
         logging.info(f'update_tag - response: {response}')
         return response.json()
 
-    # DEL Delete Tag
+    ### DEL Delete Tag
     def delete_tag(self, tag_id: int):
         """
         Deletes a tag with the specified tag_id.
@@ -377,7 +391,7 @@ class TimeularAPI(object):
         logging.info(f'delete_tag - response: {response}')
         return response.json()
     
-    # POST Create Mention
+    ### POST Create Mention
     def create_mention(self, label, scope='timeular', space_id=None):
         """
         Create a mention with the specified label.
@@ -418,7 +432,7 @@ class TimeularAPI(object):
         logging.info(f'create_mention - response: {response}')
         return response.json()
 
-    # PATCH Update Mention
+    ### PATCH Update Mention
     def update_mention(self, mention_id: int, label):
         """
         Update the label of an existing mention.
@@ -452,7 +466,7 @@ class TimeularAPI(object):
         logging.info(f'update_mention - response: {response}')
         return response.json()
 
-    # DEL Delete Mention
+    ### DEL Delete Mention
     def delete_mention(self, mention_id: int):
         """
         Delete a mention with the specified ID.
