@@ -110,7 +110,27 @@ class TimeularAPI(object):
 
         return response.json()['apiKey']
 
-    # TODO: POST Generate new API Key & API Secret
+    # POST Generate new API Key & API Secret
+    def generate_new_api_creds(self):
+    
+        data = {}
+        url = self.__baseurl__ + 'developer/api-access'
+        logging.debug(f'logout - data: {data}')
+
+        headers = {'Authorization': f'Bearer {self.__token__}'}
+
+        logging.debug(f'logout - headers: {headers}')
+
+        response = request('POST',
+            url,
+            data=json.dumps(data),
+            headers=headers,
+            timeout=self.__timeout__
+        )
+
+        logging.info(f'logout - response: {response}')
+
+        return response.json()
 
     # POST Logout
     def logout(self):
