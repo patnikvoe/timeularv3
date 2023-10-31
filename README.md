@@ -5,6 +5,7 @@ a python implementation of version3 of the timeular public API https://developer
 ## Implemented
 ### Authentication
 - POST Sign-in with API Key & API Secret
+- GET Fetch API Key
 - POST Logout
 
 ### Time Tracking
@@ -20,7 +21,6 @@ a python implementation of version3 of the timeular public API https://developer
 
 ## TODO
 ### Authentication
-- GET Fetch API Key
 - POST Generate new API Key & API Secret
 
 ### Integrations
