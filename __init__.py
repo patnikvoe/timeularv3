@@ -98,7 +98,7 @@ class TimeularAPI(object):
 
     # GET Fetch API Key
     def fetch_api_key(self):
-    
+
         data = {}
         url = self.__baseurl__ + 'developer/api-access'
         logging.debug('fetch_api_key - data: %s', data)
@@ -120,7 +120,7 @@ class TimeularAPI(object):
 
     # POST Generate new API Key & API Secret
     def generate_new_api_creds(self):
-    
+
         data = {}
         url = self.__baseurl__ + 'developer/api-access'
         logging.debug('generate_new_api_creds - data: %s', data)
@@ -349,7 +349,7 @@ class TimeularAPI(object):
         logging.info('stop_tracking - response: %s', response)
 
         return response.json()
-    
+
 ########################################
 ## Time Entries
 # GET Find Time Entries in given range
@@ -635,7 +635,7 @@ class TimeularAPI(object):
             - `create_tag`: Use this method to create a new tag.
             - `update_tag`: Use this method to update the details of an existing tag.
         """
-        
+
         data = {}
         logging.debug('delete_tag - data: %s', data)
 
@@ -654,7 +654,7 @@ class TimeularAPI(object):
         )
         logging.info('delete_tag - response: %s', response)
         return response.json()
-    
+
     ### POST Create Mention
     def create_mention(self, label, scope='timeular', space_id=None):
         """
