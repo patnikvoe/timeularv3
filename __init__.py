@@ -92,7 +92,7 @@ class TimeularAPI(object):
                 timeout=self.__timeout__
             ).json()
 
-            logging.debug(f'sign_in - response: {response}')
+            logging.debug('sign_in - response: %s', response)
 
             self.__token__ = response['token']
 
@@ -101,11 +101,11 @@ class TimeularAPI(object):
     
         data = {}
         url = self.__baseurl__ + 'developer/api-access'
-        logging.debug(f'fetch_api_key - data: {data}')
+        logging.debug('fetch_api_key - data: %s', data)
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'fetch_api_key - headers: {headers}')
+        logging.debug('fetch_api_key - headers: %s', headers)
 
         response = request('GET',
             url,
@@ -114,7 +114,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'fetch_api_key - response: {response}')
+        logging.info('fetch_api_key - response: %s', response)
 
         return response.json()['apiKey']
 
@@ -123,11 +123,11 @@ class TimeularAPI(object):
     
         data = {}
         url = self.__baseurl__ + 'developer/api-access'
-        logging.debug(f'generate_new_api_creds - data: {data}')
+        logging.debug('generate_new_api_creds - data: %s', data)
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'generate_new_api_creds - headers: {headers}')
+        logging.debug('generate_new_api_creds - headers: %s', headers)
 
         response = request('POST',
             url,
@@ -136,7 +136,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'generate_new_api_creds - response: {response}')
+        logging.info('generate_new_api_creds - response: %s', response)
 
         return response.json()
 
@@ -161,14 +161,14 @@ class TimeularAPI(object):
         """
         if self.__token__ is not None:
             data = {}
-            logging.debug(f'logout - data: {data}')
+            logging.debug('logout - data: %s', data)
 
             url = self.__baseurl__ + 'developer/logout'
-            logging.debug(f'logout - url: {url}')
+            logging.debug('logout - url: %s', url)
 
             headers = {'Authorization': f'Bearer {self.__token__}'}
 
-            logging.debug(f'logout - headers: {headers}')
+            logging.debug('logout - headers: %s', headers)
 
             response = request('POST',
                 url,
@@ -177,9 +177,9 @@ class TimeularAPI(object):
                 timeout=self.__timeout__
             )
 
-            logging.info(f'logout - response: {response}')
+            logging.info('logout - response: %s', response)
             self.__token__ = None
-            logging.info(f'logout - __token__: {self.__token__}')
+            logging.info('logout - __token__: %s', self.__token__)
 
 ################################################################################
 # Integrations
@@ -188,11 +188,11 @@ class TimeularAPI(object):
 
         data = {}
         url = self.__baseurl__ + 'integrations'
-        logging.debug(f'get_enabled_integrations - data: {data}')
+        logging.debug('get_enabled_integrations - data: %s', data)
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'get_enabled_integrations - headers: {headers}')
+        logging.debug('get_enabled_integrations - headers: %s', headers)
 
         response = request('GET',
             url,
@@ -201,7 +201,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'get_enabled_integrations - response: {response}')
+        logging.info('get_enabled_integrations - response: %s', response)
 
         return response.json()['integrations']
 
@@ -213,11 +213,11 @@ class TimeularAPI(object):
 
         data = {}
         url = self.__baseurl__ + 'activities'
-        logging.debug(f'get_all_activities - data: {data}')
+        logging.debug('get_all_activities - data: %s', data)
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'get_all_activities - headers: {headers}')
+        logging.debug('get_all_activities - headers: %s', headers)
 
         response = request('GET',
             url,
@@ -226,7 +226,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'get_all_activities - response: {response}')
+        logging.info('get_all_activities - response: %s', response)
 
         return response.json()
 
@@ -242,11 +242,11 @@ class TimeularAPI(object):
 
         data = {}
         url = self.__baseurl__ + 'devices'
-        logging.debug(f'get_all_known_devices - data: {data}')
+        logging.debug('get_all_known_devices - data: %s', data)
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'get_all_known_devices - headers: {headers}')
+        logging.debug('get_all_known_devices - headers: %s', headers)
 
         response = request('GET',
             url,
@@ -255,7 +255,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'get_all_known_devices - response: {response}')
+        logging.info('get_all_known_devices - response: %s', response)
 
         return response.json()['devices']
 
@@ -272,11 +272,11 @@ class TimeularAPI(object):
 
         data = {}
         url = self.__baseurl__ + 'tracking'
-        logging.debug(f'get_current_tracking - data: {data}')
+        logging.debug('get_current_tracking - data: %s', data)
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'get_current_tracking - headers: {headers}')
+        logging.debug('get_current_tracking - headers: %s', headers)
 
         response = request('GET',
             url,
@@ -285,7 +285,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'get_current_tracking - response: {response}')
+        logging.info('get_current_tracking - response: %s', response)
 
         return response.json()['currentTracking']
 
@@ -295,10 +295,10 @@ class TimeularAPI(object):
         data = {
             'startedAt': started_at.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
         }
-        logging.debug(f'start_tracking - data: {data}')
+        logging.debug('start_tracking - data: %s', data)
 
         url = self.__baseurl__ + f'tracking/{str(activity_id)}/start'
-        logging.debug(f'start_tracking - url: {url}')
+        logging.debug('start_tracking - url: {url}')
 
         headers = {
             'Authorization': f'Bearer {self.__token__}', 
@@ -306,7 +306,7 @@ class TimeularAPI(object):
             'Content-Type': 'application/json'
             }
 
-        logging.debug(f'start_tracking - headers: {headers}')
+        logging.debug('start_tracking - headers: %s', headers)
 
         response = request('POST',
             url,
@@ -315,7 +315,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'start_tracking - response: {response.text}')
+        logging.info('start_tracking - response: {response.text}')
 
         return response.json()
 
@@ -326,10 +326,10 @@ class TimeularAPI(object):
         data = {
             'stoppedAt': stopped_at.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
         }
-        logging.debug(f'stop_tracking - data: {data}')
+        logging.debug('stop_tracking - data: %s', data)
 
         url = self.__baseurl__ + 'tracking/stop'
-        logging.debug(f'stop_tracking - url: {url}')
+        logging.debug('stop_tracking - url: {url}')
 
         headers = {
             'Authorization': f'Bearer {self.__token__}', 
@@ -337,7 +337,7 @@ class TimeularAPI(object):
             'Content-Type': 'application/json'
             }
 
-        logging.debug(f'stop_tracking - headers: {headers}')
+        logging.debug('stop_tracking - headers: %s', headers)
 
         response = request('POST',
             url,
@@ -346,7 +346,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'stop_tracking - response: {response}')
+        logging.info('stop_tracking - response: %s', response)
 
         return response.json()
     
@@ -368,11 +368,11 @@ class TimeularAPI(object):
 
         data = {}
         url = self.__baseurl__ + f'time-entries/{s_start}/{s_end}'
-        logging.debug(f'get_time_entries_in_range - data: {data}')
+        logging.debug('get_time_entries_in_range - data: %s', data)
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'get_time_entries_in_range - headers: {headers}')
+        logging.debug('get_time_entries_in_range - headers: %s', headers)
 
         response = request('GET',
             url,
@@ -381,7 +381,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'get_time_entries_in_range - response: {response}')
+        logging.info('get_time_entries_in_range - response: %s', response)
 
         return response.json()['timeEntries']
 
@@ -399,11 +399,11 @@ class TimeularAPI(object):
 
         data = {}
         url = self.__baseurl__ + f'time-entries/{entry_id}'
-        logging.debug(f'get_time_entry_by_id - data: {data}')
+        logging.debug('get_time_entry_by_id - data: %s', data)
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'get_time_entry_by_id - headers: {headers}')
+        logging.debug('get_time_entry_by_id - headers: %s', headers)
 
         response = request('GET',
             url,
@@ -412,7 +412,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'get_time_entry_by_id - response: {response}')
+        logging.info('get_time_entry_by_id - response: %s', response)
 
         return response.json()
 
@@ -439,11 +439,11 @@ class TimeularAPI(object):
 
         data = {}
         url = self.__baseurl__ + f'time-entries/{s_start}/{s_end}'
-        logging.debug(f'get_all_data_as_json - data: {data}')
+        logging.debug('get_all_data_as_json - data: %s', data)
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'get_all_data_as_json - headers: {headers}')
+        logging.debug('get_all_data_as_json - headers: %s', headers)
 
         response = request('GET',
             url,
@@ -452,7 +452,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'get_all_data_as_json - response: {response}')
+        logging.info('get_all_data_as_json - response: %s', response)
 
         return response.json()['timeEntries']
 
@@ -468,14 +468,14 @@ class TimeularAPI(object):
             dict: A dictionary containing tags and mentions data.
         """
         data = ""
-        logging.debug(f'fetch_tags_mentions - data: {data}')
+        logging.debug('fetch_tags_mentions - data: %s', data)
 
         url = self.__baseurl__ + 'tags-and-mentions'
-        logging.debug(f'fetch_tags_mentions - url: {url}')
+        logging.debug('fetch_tags_mentions - url: {url}')
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'fetch_tags_mentions - headers: {headers}')
+        logging.debug('fetch_tags_mentions - headers: %s', headers)
 
         response = request('GET',
             url,
@@ -484,7 +484,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'fetch_tags_mentions - response: {response}')
+        logging.info('fetch_tags_mentions - response: %s', response)
         return response.json()
 
     def fetch_tags(self):
@@ -541,14 +541,14 @@ class TimeularAPI(object):
             "scope": scope,
             "spaceId": str(space_id)
             }
-        logging.debug(f'create_tag - data: {data}')
+        logging.debug('create_tag - data: %s', data)
 
         url = self.__baseurl__ + 'tags'
 
-        logging.debug(f'create_tag - url: {url}')
+        logging.debug('create_tag - url: {url}')
 
         headers = {'Authorization': f'Bearer {self.__token__}', 'Content-Type': 'application/json'}
-        logging.debug(f'create_tag - headers: {headers}')
+        logging.debug('create_tag - headers: %s', headers)
 
         response = request('POST',
             url,
@@ -556,7 +556,7 @@ class TimeularAPI(object):
             headers=headers,
             timeout=self.__timeout__
         )
-        logging.info(f'create_tag - response: {response}')
+        logging.info('create_tag - response: %s', response)
         return response.json()
 
     ### PATCH Update Tag
@@ -588,14 +588,14 @@ class TimeularAPI(object):
         data = {
             "label": label
             }
-        logging.debug(f'update_tag - data: {data}')
+        logging.debug('update_tag - data: %s', data)
 
         url = self.__baseurl__ + 'tags/' +  str(tag_id)
 
-        logging.debug(f'update_tag - url: {url}')
+        logging.debug('update_tag - url: {url}')
 
         headers = {'Authorization': f'Bearer {self.__token__}', 'Content-Type': 'application/json'}
-        logging.debug(f'update_tag - headers: {headers}')
+        logging.debug('update_tag - headers: %s', headers)
 
         response = request('PATCH',
             url,
@@ -603,7 +603,7 @@ class TimeularAPI(object):
             headers=headers,
             timeout=self.__timeout__
         )
-        logging.info(f'update_tag - response: {response}')
+        logging.info('update_tag - response: %s', response)
         return response.json()
 
     ### DEL Delete Tag
@@ -637,14 +637,14 @@ class TimeularAPI(object):
         """
         
         data = {}
-        logging.debug(f'delete_tag - data: {data}')
+        logging.debug('delete_tag - data: %s', data)
 
         url = self.__baseurl__ + 'tags/' +  str(tag_id)
 
-        logging.debug(f'delete_tag - url: {url}')
+        logging.debug('delete_tag - url: {url}')
 
         headers = {'Authorization': f'Bearer {self.__token__}', 'Content-Type': 'application/json'}
-        logging.debug(f'delete_tag - headers: {headers}')
+        logging.debug('delete_tag - headers: %s', headers)
 
         response = request('DELETE',
             url,
@@ -652,7 +652,7 @@ class TimeularAPI(object):
             headers=headers,
             timeout=self.__timeout__
         )
-        logging.info(f'delete_tag - response: {response}')
+        logging.info('delete_tag - response: %s', response)
         return response.json()
     
     ### POST Create Mention
@@ -679,13 +679,13 @@ class TimeularAPI(object):
             "spaceId": str(space_id)
             }
 
-        logging.debug(f'create_mention - data: {data}')
+        logging.debug('create_mention - data: %s', data)
 
         url = self.__baseurl__ + 'mentions'
-        logging.debug(f'create_mention - url: {url}')
+        logging.debug('create_mention - url: {url}')
 
         headers = {'Authorization': f'Bearer {self.__token__}', 'Content-Type': 'application/json'}
-        logging.debug(f'create_mention - headers: {headers}')
+        logging.debug('create_mention - headers: %s', headers)
 
         response = request('POST',
             url,
@@ -693,7 +693,7 @@ class TimeularAPI(object):
             headers=headers,
             timeout=self.__timeout__
         )
-        logging.info(f'create_mention - response: {response}')
+        logging.info('create_mention - response: %s', response)
         return response.json()
 
     ### PATCH Update Mention
@@ -712,14 +712,14 @@ class TimeularAPI(object):
         data = {
             "label": label
             }
-        logging.debug(f'update_mention - data: {data}')
+        logging.debug('update_mention - data: %s', data)
 
         url = self.__baseurl__ + 'mentions/' +  str(mention_id)
 
-        logging.debug(f'update_mention - url: {url}')
+        logging.debug('update_mention - url: {url}')
 
         headers = {'Authorization': f'Bearer {self.__token__}', 'Content-Type': 'application/json'}
-        logging.debug(f'update_mention - headers: {headers}')
+        logging.debug('update_mention - headers: %s', headers)
 
         response = request('PATCH',
             url,
@@ -727,7 +727,7 @@ class TimeularAPI(object):
             headers=headers,
             timeout=self.__timeout__
         )
-        logging.info(f'update_mention - response: {response}')
+        logging.info('update_mention - response: %s', response)
         return response.json()
 
     ### DEL Delete Mention
@@ -743,14 +743,14 @@ class TimeularAPI(object):
 
         """
         data = {}
-        logging.debug(f'delete_mention - data: {data}')
+        logging.debug('delete_mention - data: %s', data)
 
         url = self.__baseurl__ + 'mentions/' +  str(mention_id)
 
-        logging.debug(f'delete_mention - url: {url}')
+        logging.debug('delete_mention - url: {url}')
 
         headers = {'Authorization': f'Bearer {self.__token__}', 'Content-Type': 'application/json'}
-        logging.debug(f'delete_mention - headers: {headers}')
+        logging.debug('delete_mention - headers: %s', headers)
 
         response = request('DELETE',
             url,
@@ -758,7 +758,7 @@ class TimeularAPI(object):
             headers=headers,
             timeout=self.__timeout__
         )
-        logging.info(f'delete_mention - response: {response}')
+        logging.info('delete_mention - response: %s', response)
         return response.json()
 
 ################################################################################
@@ -774,14 +774,14 @@ class TimeularAPI(object):
 
         """
         data = {}
-        logging.debug(f'get_user - data: {data}')
+        logging.debug('get_user - data: %s', data)
 
         url = self.__baseurl__ + 'me'
-        logging.debug(f'get_user - url: {url}')
+        logging.debug('get_user - url: {url}')
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'get_user - headers: {headers}')
+        logging.debug('get_user - headers: %s', headers)
 
         response = request('GET',
             url,
@@ -790,7 +790,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'get_user - response: {response}')
+        logging.info('get_user - response: %s', response)
         return response.json()['data']
 
     ## Space
@@ -804,14 +804,14 @@ class TimeularAPI(object):
 
         """
         data = {}
-        logging.debug(f'get_spaces_with_members - data: {data}')
+        logging.debug('get_spaces_with_members - data: %s', data)
 
         url = self.__baseurl__ + 'space'
-        logging.debug(f'get_spaces_with_members - url: {url}')
+        logging.debug('get_spaces_with_members - url: {url}')
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'get_spaces_with_members - headers: {headers}')
+        logging.debug('get_spaces_with_members - headers: %s', headers)
 
         response = request('GET',
             url,
@@ -820,5 +820,5 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'get_spaces_with_members - response: {response}')
+        logging.info('get_spaces_with_members - response: %s', response)
         return response.json()['data']
