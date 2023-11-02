@@ -145,10 +145,12 @@ class TimeularAPI(object):
         """
         Logs out the user from the Timeular API.
 
-        This method sends a POST request to the Timeular API to log out the currently authenticated user.
+        This method sends a POST request to the Timeular API to log out the currently 
+        authenticated user.
 
         Raises:
-            TimeularAPIError: If there is an issue with the API request, such as invalid credentials.
+            TimeularAPIError: If there is an issue with the API request, such as 
+            invalid credentials.
 
         Example:
             timeular = TimeularAPI()
@@ -156,8 +158,8 @@ class TimeularAPI(object):
             timeular.logout()
 
         Note:
-            This method will clear the authentication token, and you will need to log in again
-            to make further authenticated API calls.
+            This method will clear the authentication token, and you will need to 
+            log in again to make further authenticated API calls.
         """
         if self.__token__ is not None:
             data = {}
@@ -290,7 +292,10 @@ class TimeularAPI(object):
         return response.json()['currentTracking']
 
 # POST Start Tracking
-    def start_tracking(self, activity_id:int, started_at: datetime.datetime = datetime.datetime.utcnow()):
+    def start_tracking(self,
+                       activity_id:int,
+                       started_at: datetime.datetime = datetime.datetime.utcnow()
+                       ):
 
         data = {
             'startedAt': started_at.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
@@ -424,7 +429,9 @@ class TimeularAPI(object):
 # GET All Data as JSON
     def get_all_data_as_json(self, start: datetime.datetime, end: datetime.datetime):
         """
-        Generates a Report which contains all the Time Entries from inside the given time range as JSON from all personal spaces and shared spaces. If some Time Entry exceeds the report’s time range, only matching part will be included.
+        Generates a Report which contains all the Time Entries from inside the given time 
+        range as JSON from all personal spaces and shared spaces. If some Time Entry exceeds 
+        the report's time range, only matching part will be included.
         
         Args:
             start (datetime.datetime): datetime object for the start
@@ -513,20 +520,22 @@ class TimeularAPI(object):
         Args:
             label (str): The label/name of the tag you want to create.
             scope (str, optional): The scope of the tag (default is 'timeular').
-            space_id (str, optional): The ID of the space where you want to create the tag. If not provided,
-                the default space ID will be used.
+            space_id (str, optional): The ID of the space where you want to create the tag. 
+                If not provided, the default space ID will be used.
 
         Returns:
-            dict: A dictionary containing information about the created tag, including its unique key, label,
-            scope, and space ID.
+            dict: A dictionary containing information about the created tag, including its 
+            unique key, label, scope, and space ID.
 
         Raises:
-            Exception: If there is an issue with the HTTP request or if the response indicates an error.
+            Exception: If there is an issue with the HTTP request or if the response indicates 
+            an error.
 
         Note:
-            This function sends a POST request to the Timeular API to create a new tag with the specified
-            parameters. It requires authorization through the 'Bearer' token provided when initializing
-            the TimeularAPI. The function logs debug and info messages for tracking the process.
+            This function sends a POST request to the Timeular API to create a new tag with the 
+            specified parameters. It requires authorization through the 'Bearer' token provided 
+            when initializing the TimeularAPI. The function logs debug and info messages for 
+            tracking the process.
 
         Example:
             To create a new tag with the label 'Work' and a custom space ID:
@@ -569,7 +578,8 @@ class TimeularAPI(object):
             label (str): The new label to set for the tag.
 
         Returns:
-            dict: A dictionary representing the updated tag information, typically containing the tag's ID and label.
+            dict: A dictionary representing the updated tag information, typically containing 
+            the tag's ID and label.
             
         Raises:
             - RequestException: If there was an issue with the HTTP request to the Timeular API.
@@ -578,8 +588,9 @@ class TimeularAPI(object):
             - json.JSONDecodeError: If the response from the API cannot be parsed as JSON.
 
         Note:
-            This function sends a PATCH request to the Timeular API to update the label of the specified tag.
-            It requires the user to be authenticated with a valid bearer token (access token).
+            This function sends a PATCH request to the Timeular API to update the label of the 
+            specified tag. It requires the user to be authenticated with a valid bearer token 
+            (access token).
 
         Example:
             # Update the label of a tag with ID 123 to "Work"
