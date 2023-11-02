@@ -86,6 +86,8 @@ class TimeularAPI(object):
                 timeout=self.__timeout__
             ).json()
 
+            logging.debug(f'sign_in - response: {response}')
+
             self.__token__ = response['token']
 
     # GET Fetch API Key
