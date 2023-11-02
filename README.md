@@ -13,6 +13,24 @@ a python implementation of version3 of the timeular public API https://developer
 - GET List enabled Integrations
 
 ### Time Tracking
+#### Activities
+- GET List all Activities
+
+#### Devices
+- GET List all known Devices
+
+#### Current Tracking
+- GET Show current Tracking
+
+#### Time Entries
+- GET Find Time Entries in given range
+
+- GET Find Time Entry by its ID
+
+
+#### Reports
+- GET All Data as JSON
+
 #### Tags & Mentions
 - GET Fetch Tags & Mentions
 - POST Create Tag
@@ -27,7 +45,6 @@ a python implementation of version3 of the timeular public API https://developer
 
 ### Time Tracking
 #### Activities
-- GET List all Activities
 - POST Create an Activity
 - PATCH Edit an Activity
 - DEL Archive an Activity
@@ -35,7 +52,6 @@ a python implementation of version3 of the timeular public API https://developer
 - DEL Unassign an Activity from a Device Side
 
 #### Devices
-- GET List all known Devices
 - POST Activate Device
 - POST Deactivate Device
 - PATCH Edit Device
@@ -44,18 +60,15 @@ a python implementation of version3 of the timeular public API https://developer
 - POST Enable Device
 
 #### Current Tracking
-- GET Show current Tracking
 - POST Start Tracking
 - PATCH Edit Tracking
 - POST Stop Tracking
 
 #### Time Entries
-- GET Find Time Entries in given range
 - POST Create Time Entry
-- GET Find Time Entry by its ID
+
 - PATCH Edit a Time Entry
 - DEL Delete a Time Entry
 
 #### Reports
-- GET Generate Report
-- GET All Data as JSON
+- GET Generate Report -> Requires Pro Subscription, I do not have it to test

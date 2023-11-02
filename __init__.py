@@ -3,6 +3,7 @@ import json
 import logging
 import uuid
 import pytz
+import datetime
 
 from requests import request
 
@@ -199,11 +200,31 @@ class TimeularAPI(object):
 
         return response.json()['integrations']
 
-
 ################################################################################
 # Time Tracking
 ## Activities
-# TODO: GET List all Activities
+# GET List all Activities
+    def get_all_activities(self):
+
+        data = {}
+        url = self.__baseurl__ + 'activities'
+        logging.debug(f'get_all_activities - data: {data}')
+
+        headers = {'Authorization': f'Bearer {self.__token__}'}
+
+        logging.debug(f'get_all_activities - headers: {headers}')
+
+        response = request('GET',
+            url,
+            data=json.dumps(data),
+            headers=headers,
+            timeout=self.__timeout__
+        )
+
+        logging.info(f'get_all_activities - response: {response}')
+
+        return response.json()
+
 # TODO: POST Create an Activity
 # TODO: PATCH Edit an Activity
 # TODO: DEL Archive an Activity
@@ -211,7 +232,28 @@ class TimeularAPI(object):
 # TODO: DEL Unassign an Activity from a Device Side
 ########################################
 ## Devices
-# TODO: GET List all known Devices
+# GET List all known Devices
+    def get_all_known_devices(self):
+
+        data = {}
+        url = self.__baseurl__ + 'devices'
+        logging.debug(f'get_all_known_devices - data: {data}')
+
+        headers = {'Authorization': f'Bearer {self.__token__}'}
+
+        logging.debug(f'get_all_known_devices - headers: {headers}')
+
+        response = request('GET',
+            url,
+            data=json.dumps(data),
+            headers=headers,
+            timeout=self.__timeout__
+        )
+
+        logging.info(f'get_all_known_devices - response: {response}')
+
+        return response.json()['devices']
+
 # TODO: POST Activate Device
 # TODO: POST Deactivate Device
 # TODO: PATCH Edit Device
@@ -220,21 +262,136 @@ class TimeularAPI(object):
 # TODO: POST Enable Device
 ########################################
 ## Current Tracking
-# TODO: GET Show current Tracking
+# GET Show current Tracking
+    def get_current_tracking(self):
+
+        data = {}
+        url = self.__baseurl__ + 'tracking'
+        logging.debug(f'get_current_tracking - data: {data}')
+
+        headers = {'Authorization': f'Bearer {self.__token__}'}
+
+        logging.debug(f'get_current_tracking - headers: {headers}')
+
+        response = request('GET',
+            url,
+            data=json.dumps(data),
+            headers=headers,
+            timeout=self.__timeout__
+        )
+
+        logging.info(f'get_current_tracking - response: {response}')
+
+        return response.json()['currentTracking']
 # TODO: POST Start Tracking
 # TODO: PATCH Edit Tracking
 # TODO: POST Stop Tracking
 ########################################
 ## Time Entries
-# TODO: GET Find Time Entries in given range
+# GET Find Time Entries in given range
+    def get_time_entries_in_range(self, start: datetime.datetime, end: datetime.datetime):
+        """Find Time Entries within the given time range.
+
+        Args:
+            start (datetime.datetime): datetime object for the start
+            end (datetime.datetime): datetime object for the end
+
+        Returns:
+            dict: all time entries in the given range
+        """
+        s_start = start.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
+        s_end = end.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
+
+        data = {}
+        url = self.__baseurl__ + f'time-entries/{s_start}/{s_end}'
+        logging.debug(f'get_time_entries_in_range - data: {data}')
+
+        headers = {'Authorization': f'Bearer {self.__token__}'}
+
+        logging.debug(f'get_time_entries_in_range - headers: {headers}')
+
+        response = request('GET',
+            url,
+            data=json.dumps(data),
+            headers=headers,
+            timeout=self.__timeout__
+        )
+
+        logging.info(f'get_time_entries_in_range - response: {response}')
+
+        return response.json()['timeEntries']
+    
 # TODO: POST Create Time Entry
-# TODO: GET Find Time Entry by its ID
+# GET Find Time Entry by its ID
+    def get_time_entry_by_id(self, entry_id: int):
+        """Find Time Entry by its ID
+
+        Args:
+            entry_id (int): ID of the required time entry
+
+        Returns:
+            dict: of the Time Entry
+        """
+
+        data = {}
+        url = self.__baseurl__ + f'time-entries/{entry_id}'
+        logging.debug(f'get_time_entry_by_id - data: {data}')
+
+        headers = {'Authorization': f'Bearer {self.__token__}'}
+
+        logging.debug(f'get_time_entry_by_id - headers: {headers}')
+
+        response = request('GET',
+            url,
+            data=json.dumps(data),
+            headers=headers,
+            timeout=self.__timeout__
+        )
+
+        logging.info(f'get_time_entry_by_id - response: {response}')
+
+        return response.json()
+    
 # TODO: PATCH Edit a Time Entry
 # TODO: DEL Delete a Time Entry
 ########################################
 ## Reports
 # TODO: GET Generate Report
-# TODO: GET All Data as JSON
+# GET All Data as JSON
+    def get_all_data_as_json(self, start: datetime.datetime, end: datetime.datetime):
+        """
+        Generates a Report which contains all the Time Entries from inside the given time range as JSON from all personal spaces and shared spaces. If some Time Entry exceeds the report’s time range, only matching part will be included.
+        
+        Args:
+            start (datetime.datetime): datetime object for the start
+            end (datetime.datetime): datetime object for the end
+
+        Returns:
+            dict: all time entries in the given range
+        """
+
+        s_start = start.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
+        s_end = end.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
+
+        data = {}
+        url = self.__baseurl__ + f'time-entries/{s_start}/{s_end}'
+        logging.debug(f'get_all_data_as_json - data: {data}')
+
+        headers = {'Authorization': f'Bearer {self.__token__}'}
+
+        logging.debug(f'get_all_data_as_json - headers: {headers}')
+
+        response = request('GET',
+            url,
+            data=json.dumps(data),
+            headers=headers,
+            timeout=self.__timeout__
+        )
+
+        logging.info(f'get_all_data_as_json - response: {response}')
+
+        return response.json()['timeEntries']
+
 ########################################
     ## Tags & Mentions
 
