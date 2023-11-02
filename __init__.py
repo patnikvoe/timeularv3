@@ -45,11 +45,6 @@ class TimeularAPI(object):
         response = self.get_user()
         self.__default_space_id__ = int(response['defaultSpaceId'])
         self.__user_id__ = int(response['userId'])
-        
-    def __get_last_entry_id__(self):
-        response = self.get_time_entries_in_range(datetime.datetime.utcnow()-datetime.timedelta(90), datetime.datetime.utcnow())
-        
-        return response
 
 ################################################################################
     # Authentication
