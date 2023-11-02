@@ -177,7 +177,28 @@ class TimeularAPI(object):
 
 ################################################################################
 # Integrations
-# TODO: GET List enabled Integrations
+# GET List enabled Integrations
+    def get_enabled_integrations(self):
+
+        data = {}
+        url = self.__baseurl__ + 'integrations'
+        logging.debug(f'get_enabled_integrations - data: {data}')
+
+        headers = {'Authorization': f'Bearer {self.__token__}'}
+
+        logging.debug(f'get_enabled_integrations - headers: {headers}')
+
+        response = request('GET',
+            url,
+            data=json.dumps(data),
+            headers=headers,
+            timeout=self.__timeout__
+        )
+
+        logging.info(f'get_enabled_integrations - response: {response}')
+
+        return response.json()['integrations']
+
 
 ################################################################################
 # Time Tracking

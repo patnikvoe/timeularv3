@@ -9,6 +9,9 @@ a python implementation of version3 of the timeular public API https://developer
 - POST Generate new API Key & API Secret
 - POST Logout
 
+### Integrations
+- GET List enabled Integrations
+
 ### Time Tracking
 #### Tags & Mentions
 - GET Fetch Tags & Mentions
@@ -21,9 +24,6 @@ a python implementation of version3 of the timeular public API https://developer
 
 
 ## TODO
-
-### Integrations
-- GET List enabled Integrations
 
 ### Time Tracking
 #### Activities
