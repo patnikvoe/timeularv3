@@ -27,12 +27,12 @@ class TimeularAPI(object):
         self.__timeout__ = timeout
         self.__baseurl__ = "https://api.timeular.com/api/v3/"
         self.__default_space_id__ = None
+        self.__user_id__ = None
 
     def __enter__(self):
         logging.debug('start __enter__')
         self.sign_in()
-        response = self.get_user()
-        self.__default_space_id__ = int(response['defaultSpaceId'])
+        self.__get_user_ids__()
         logging.debug('returning self __enter__')
         return self
 
@@ -40,6 +40,16 @@ class TimeularAPI(object):
         logging.debug('start __exit_')
         self.logout()
         logging.debug('end __exit_')
+
+    def __get_user_ids__(self):
+        response = self.get_user()
+        self.__default_space_id__ = int(response['defaultSpaceId'])
+        self.__user_id__ = int(response['userId'])
+        
+    def __get_last_entry_id__(self):
+        response = self.get_time_entries_in_range(datetime.datetime.utcnow()-datetime.timedelta(90), datetime.datetime.utcnow())
+        
+        return response
 
 ################################################################################
     # Authentication
@@ -283,9 +293,68 @@ class TimeularAPI(object):
         logging.info(f'get_current_tracking - response: {response}')
 
         return response.json()['currentTracking']
-# TODO: POST Start Tracking
-# TODO: PATCH Edit Tracking
-# TODO: POST Stop Tracking
+
+# POST Start Tracking
+    def start_tracking(self, activity_id:int, started_at: datetime.datetime = datetime.datetime.utcnow()):
+
+        data = {
+            'startedAt': started_at.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
+        }
+        logging.debug(f'start_tracking - data: {data}')
+
+        url = self.__baseurl__ + f'tracking/{str(activity_id)}/start'
+        logging.debug(f'start_tracking - url: {url}')
+
+        headers = {
+            'Authorization': f'Bearer {self.__token__}', 
+            'Subscriber-ID': str(self.__user_id__), 
+            'Content-Type': 'application/json'
+            }
+
+        logging.debug(f'start_tracking - headers: {headers}')
+
+        response = request('POST',
+            url,
+            data=json.dumps(data),
+            headers=headers,
+            timeout=self.__timeout__
+        )
+
+        logging.info(f'start_tracking - response: {response.text}')
+
+        return response.json()
+
+# PATCH Edit Tracking
+# POST Stop Tracking
+    def stop_tracking(self, stopped_at: datetime.datetime = datetime.datetime.utcnow()):
+
+        data = {
+            'stoppedAt': stopped_at.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
+        }
+        logging.debug(f'stop_tracking - data: {data}')
+
+        url = self.__baseurl__ + 'tracking/stop'
+        logging.debug(f'stop_tracking - url: {url}')
+
+        headers = {
+            'Authorization': f'Bearer {self.__token__}', 
+            'Subscriber-ID': str(self.__user_id__), 
+            'Content-Type': 'application/json'
+            }
+
+        logging.debug(f'stop_tracking - headers: {headers}')
+
+        response = request('POST',
+            url,
+            data=json.dumps(data),
+            headers=headers,
+            timeout=self.__timeout__
+        )
+
+        logging.info(f'stop_tracking - response: {response}')
+
+        return response.json()
+    
 ########################################
 ## Time Entries
 # GET Find Time Entries in given range
@@ -320,7 +389,7 @@ class TimeularAPI(object):
         logging.info(f'get_time_entries_in_range - response: {response}')
 
         return response.json()['timeEntries']
-    
+
 # TODO: POST Create Time Entry
 # GET Find Time Entry by its ID
     def get_time_entry_by_id(self, entry_id: int):
@@ -351,7 +420,7 @@ class TimeularAPI(object):
         logging.info(f'get_time_entry_by_id - response: {response}')
 
         return response.json()
-    
+
 # TODO: PATCH Edit a Time Entry
 # TODO: DEL Delete a Time Entry
 ########################################

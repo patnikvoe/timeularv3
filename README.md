@@ -21,6 +21,9 @@ a python implementation of version3 of the timeular public API https://developer
 
 #### Current Tracking
 - GET Show current Tracking
+- POST Start Tracking
+
+- POST Stop Tracking
 
 #### Time Entries
 - GET Find Time Entries in given range
@@ -60,9 +63,7 @@ a python implementation of version3 of the timeular public API https://developer
 - POST Enable Device
 
 #### Current Tracking
-- POST Start Tracking
 - PATCH Edit Tracking
-- POST Stop Tracking
 
 #### Time Entries
 - POST Create Time Entry
