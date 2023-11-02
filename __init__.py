@@ -93,11 +93,11 @@ class TimeularAPI(object):
     
         data = {}
         url = self.__baseurl__ + 'developer/api-access'
-        logging.debug(f'logout - data: {data}')
+        logging.debug(f'fetch_api_key - data: {data}')
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'logout - headers: {headers}')
+        logging.debug(f'fetch_api_key - headers: {headers}')
 
         response = request('GET',
             url,
@@ -106,7 +106,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'logout - response: {response}')
+        logging.info(f'fetch_api_key - response: {response}')
 
         return response.json()['apiKey']
 
@@ -115,11 +115,11 @@ class TimeularAPI(object):
     
         data = {}
         url = self.__baseurl__ + 'developer/api-access'
-        logging.debug(f'logout - data: {data}')
+        logging.debug(f'generate_new_api_creds - data: {data}')
 
         headers = {'Authorization': f'Bearer {self.__token__}'}
 
-        logging.debug(f'logout - headers: {headers}')
+        logging.debug(f'generate_new_api_creds - headers: {headers}')
 
         response = request('POST',
             url,
@@ -128,7 +128,7 @@ class TimeularAPI(object):
             timeout=self.__timeout__
         )
 
-        logging.info(f'logout - response: {response}')
+        logging.info(f'generate_new_api_creds - response: {response}')
 
         return response.json()
 
